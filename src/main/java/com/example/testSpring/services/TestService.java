@@ -50,6 +50,15 @@ public class TestService implements TestServ{
 
     @Override
     public ResponseEntity<?> delete(Long id) {
-        return null;
+       Optional<Test> test=testRepo.findById(id);
+       if(test.isPresent()){
+           Test deleteTest=test.get();
+           testRepo.delete(deleteTest);
+           return ResponseEntity.ok("test deleted");
+       }
+       else
+           return ResponseEntity.ok("test not exist");
+
+
     }
 }

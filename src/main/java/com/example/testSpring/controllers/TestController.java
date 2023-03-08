@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 
 
 @RestController // restfull
@@ -27,6 +26,12 @@ public class TestController {
     ResponseEntity<?> afficherById(@PathVariable("id") Long id){
        return testService.getById(id);
    }
+
+   @PatchMapping("/update/{id}")
+    ResponseEntity<?> update(@PathVariable("id") Long id , @RequestBody Test test){return  testService.update(test,id);}
+
+   @DeleteMapping("/delete/{id}")
+   ResponseEntity<?> delete(@PathVariable("id") Long id ){return testService.delete(id);}
 
 
 

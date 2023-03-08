@@ -29,7 +29,10 @@ public class ProdClassService implements ProdInterface{
 
     @Override
     public ResponseEntity<?> add(Produit produit) {
-       return ResponseEntity.ok(prodRepo.save(produit));
+        if(prodRepo.existsByNomProd(produit.getNomProd()))
+            return ResponseEntity.ok("product exist");
+        else
+        return ResponseEntity.ok(prodRepo.save(produit));
     }
 
     @Override
@@ -60,5 +63,15 @@ public class ProdClassService implements ProdInterface{
 
         else
             return ResponseEntity.ok("Product dosn't exist");
+    }
+
+    @Override
+    public ResponseEntity<?> findByNomProd(String nom) {
+        Optional<Produit> produit=prodRepo.findProduitByNomProd(nom);
+        if(produit.isPresent()) {
+            return ResponseEntity.ok(produit.get());
+        }
+        else
+            return ResponseEntity.ok("product dosn't exist");
     }
 }

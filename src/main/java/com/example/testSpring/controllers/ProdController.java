@@ -2,9 +2,11 @@ package com.example.testSpring.controllers;
 
 import com.example.testSpring.models.Produit;
 import com.example.testSpring.services.ProdService.ProdClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("Produit")
@@ -21,7 +23,7 @@ public class ProdController {
     ResponseEntity<?> getByIdProd(@PathVariable("id") Long id){return prodService.getById(id);}
 
     @PostMapping("/add")
-    ResponseEntity<?> addProd(@RequestBody Produit produit){return prodService.add(produit);}
+    ResponseEntity<?> addProd(@Valid @RequestBody Produit produit){return prodService.add(produit);}
 
     @PatchMapping("update/{id}")
     ResponseEntity<?> updateProd(@RequestBody Produit produit,@PathVariable("id") Long id){return prodService.update(produit,id);}
@@ -30,4 +32,7 @@ public class ProdController {
     ResponseEntity<?> deleteProd(@PathVariable("id") Long id){
         return prodService.delete(id);
     }
+
+    @GetMapping("getByName/{nom}")
+    ResponseEntity<?> getByName(@PathVariable("nom") String nom){return prodService.findByNomProd(nom);}
 }

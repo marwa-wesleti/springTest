@@ -51,8 +51,7 @@ public class TestService implements TestServ{
     public ResponseEntity<?> delete(Long id) {
        Optional<Test> test=testRepo.findById(id);
        if(test.isPresent()){
-           Test deleteTest=test.get();
-           testRepo.delete(deleteTest);
+           testRepo.deleteById(id);
            return ResponseEntity.ok("test deleted");
        }
        else
